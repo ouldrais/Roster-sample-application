@@ -65,4 +65,8 @@ entity ShiftTemplate {
 	type String
 }
 
+relationship ManyToOne {
+	Resource{team(key)} to Team
+}
+
 
