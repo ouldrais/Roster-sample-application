@@ -1,0 +1,20 @@
+{
+  "annotations": {
+    "changelogDate": "20240102013124"
+  },
+  "applications": "*",
+  "entityTableName": "position",
+  "fields": [
+    {
+      "fieldName": "key",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "leadership",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Position",
+  "relationships": [],
+  "searchEngine": "no"
+}
