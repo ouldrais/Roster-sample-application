@@ -27,6 +27,9 @@ public class Position implements Serializable {
     @Column(name = "leadership")
     private String leadership;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Department department;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -66,6 +69,19 @@ public class Position implements Serializable {
 
     public void setLeadership(String leadership) {
         this.leadership = leadership;
+    }
+
+    public Department getDepartment() {
+        return this.department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Position department(Department department) {
+        this.setDepartment(department);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

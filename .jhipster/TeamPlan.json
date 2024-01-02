@@ -11,6 +11,21 @@
     }
   ],
   "name": "TeamPlan",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "team",
+      "relationshipName": "team",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "shift",
+      "relationshipName": "shift",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "searchEngine": "no"
 }

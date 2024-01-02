@@ -153,12 +153,19 @@ public class ResourceTrainingResource {
     /**
      * {@code GET  /resource-trainings} : get all the resourceTrainings.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of resourceTrainings in body.
      */
     @GetMapping("")
-    public List<ResourceTraining> getAllResourceTrainings() {
+    public List<ResourceTraining> getAllResourceTrainings(
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get all ResourceTrainings");
-        return resourceTrainingRepository.findAll();
+        if (eagerload) {
+            return resourceTrainingRepository.findAllWithEagerRelationships();
+        } else {
+            return resourceTrainingRepository.findAll();
+        }
     }
 
     /**
@@ -170,7 +177,7 @@ public class ResourceTrainingResource {
     @GetMapping("/{id}")
     public ResponseEntity<ResourceTraining> getResourceTraining(@PathVariable("id") Long id) {
         log.debug("REST request to get ResourceTraining : {}", id);
-        Optional<ResourceTraining> resourceTraining = resourceTrainingRepository.findById(id);
+        Optional<ResourceTraining> resourceTraining = resourceTrainingRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(resourceTraining);
     }
 

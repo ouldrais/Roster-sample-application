@@ -18,7 +18,9 @@
         "title": "Shift Demand"
       },
       "id": "ID",
-      "count": "Count"
+      "count": "Count",
+      "shift": "Shift",
+      "department": "Department"
     }
   }
 }

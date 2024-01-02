@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { ITeam } from 'app/shared/model/team.model';
+import { getEntities as getTeams } from 'app/entities/team/team.reducer';
+import { IShift } from 'app/shared/model/shift.model';
+import { getEntities as getShifts } from 'app/entities/shift/shift.reducer';
 import { ITeamPlan } from 'app/shared/model/team-plan.model';
 import { getEntity, updateEntity, createEntity, reset } from './team-plan.reducer';
 
@@ -19,6 +23,8 @@ export const TeamPlanUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const teams = useAppSelector(state => state.team.entities);
+  const shifts = useAppSelector(state => state.shift.entities);
   const teamPlanEntity = useAppSelector(state => state.teamPlan.entity);
   const loading = useAppSelector(state => state.teamPlan.loading);
   const updating = useAppSelector(state => state.teamPlan.updating);
@@ -34,6 +40,9 @@ export const TeamPlanUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getTeams({}));
+    dispatch(getShifts({}));
   }, []);
 
   useEffect(() => {
@@ -51,6 +60,8 @@ export const TeamPlanUpdate = () => {
     const entity = {
       ...teamPlanEntity,
       ...values,
+      team: teams.find(it => it.id.toString() === values.team.toString()),
+      shift: shifts.find(it => it.id.toString() === values.shift.toString()),
     };
 
     if (isNew) {
@@ -65,6 +76,8 @@ export const TeamPlanUpdate = () => {
       ? {}
       : {
           ...teamPlanEntity,
+          team: teamPlanEntity?.team?.id,
+          shift: teamPlanEntity?.shift?.id,
         };
 
   return (
@@ -100,6 +113,38 @@ export const TeamPlanUpdate = () => {
                 check
                 type="checkbox"
               />
+              <ValidatedField
+                id="team-plan-team"
+                name="team"
+                data-cy="team"
+                label={translate('rosterSampleApplicationApp.teamPlan.team')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {teams
+                  ? teams.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="team-plan-shift"
+                name="shift"
+                data-cy="shift"
+                label={translate('rosterSampleApplicationApp.teamPlan.shift')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {shifts
+                  ? shifts.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/team-plan" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

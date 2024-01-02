@@ -11,6 +11,21 @@
     }
   ],
   "name": "ShiftDemand",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "shift",
+      "relationshipName": "shift",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "department",
+      "relationshipName": "department",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "searchEngine": "no"
 }

@@ -22,7 +22,9 @@
       "level": "Level",
       "trainer": "Trainer",
       "activeFrom": "Active From",
-      "activeto": "Activeto"
+      "activeto": "Activeto",
+      "resource": "Resource",
+      "training": "Training"
     }
   }
 }

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
@@ -23,6 +24,13 @@ public class PositionRequirement implements Serializable {
 
     @Column(name = "mandatoty")
     private String mandatoty;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Training training;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "department" }, allowSetters = true)
+    private Position position;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -50,6 +58,32 @@ public class PositionRequirement implements Serializable {
 
     public void setMandatoty(String mandatoty) {
         this.mandatoty = mandatoty;
+    }
+
+    public Training getTraining() {
+        return this.training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    public PositionRequirement training(Training training) {
+        this.setTraining(training);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public PositionRequirement position(Position position) {
+        this.setPosition(position);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

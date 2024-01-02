@@ -24,6 +24,12 @@ public class ShiftDemand implements Serializable {
     @Column(name = "count")
     private Long count;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shift shift;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Department department;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -50,6 +56,32 @@ public class ShiftDemand implements Serializable {
 
     public void setCount(Long count) {
         this.count = count;
+    }
+
+    public Shift getShift() {
+        return this.shift;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+
+    public ShiftDemand shift(Shift shift) {
+        this.setShift(shift);
+        return this;
+    }
+
+    public Department getDepartment() {
+        return this.department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public ShiftDemand department(Department department) {
+        this.setDepartment(department);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -1,6 +1,8 @@
 package com.mycompany.myapp.domain;
 
+import static com.mycompany.myapp.domain.DepartmentTestSamples.*;
 import static com.mycompany.myapp.domain.ShiftDemandTestSamples.*;
+import static com.mycompany.myapp.domain.ShiftTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.mycompany.myapp.web.rest.TestUtil;
@@ -20,5 +22,29 @@ class ShiftDemandTest {
 
         shiftDemand2 = getShiftDemandSample2();
         assertThat(shiftDemand1).isNotEqualTo(shiftDemand2);
+    }
+
+    @Test
+    void shiftTest() throws Exception {
+        ShiftDemand shiftDemand = getShiftDemandRandomSampleGenerator();
+        Shift shiftBack = getShiftRandomSampleGenerator();
+
+        shiftDemand.setShift(shiftBack);
+        assertThat(shiftDemand.getShift()).isEqualTo(shiftBack);
+
+        shiftDemand.shift(null);
+        assertThat(shiftDemand.getShift()).isNull();
+    }
+
+    @Test
+    void departmentTest() throws Exception {
+        ShiftDemand shiftDemand = getShiftDemandRandomSampleGenerator();
+        Department departmentBack = getDepartmentRandomSampleGenerator();
+
+        shiftDemand.setDepartment(departmentBack);
+        assertThat(shiftDemand.getDepartment()).isEqualTo(departmentBack);
+
+        shiftDemand.department(null);
+        assertThat(shiftDemand.getDepartment()).isNull();
     }
 }

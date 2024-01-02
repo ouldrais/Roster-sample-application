@@ -43,6 +43,10 @@ export const PositionDetail = () => {
             </span>
           </dt>
           <dd>{positionEntity.leadership}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.position.department">Department</Translate>
+          </dt>
+          <dd>{positionEntity.department ? positionEntity.department.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/position" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IResource } from 'app/shared/model/resource.model';
+import { getEntities as getResources } from 'app/entities/resource/resource.reducer';
+import { ITraining } from 'app/shared/model/training.model';
+import { getEntities as getTrainings } from 'app/entities/training/training.reducer';
 import { IResourceTraining } from 'app/shared/model/resource-training.model';
 import { getEntity, updateEntity, createEntity, reset } from './resource-training.reducer';
 
@@ -19,6 +23,8 @@ export const ResourceTrainingUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const resources = useAppSelector(state => state.resource.entities);
+  const trainings = useAppSelector(state => state.training.entities);
   const resourceTrainingEntity = useAppSelector(state => state.resourceTraining.entity);
   const loading = useAppSelector(state => state.resourceTraining.loading);
   const updating = useAppSelector(state => state.resourceTraining.updating);
@@ -34,6 +40,9 @@ export const ResourceTrainingUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getResources({}));
+    dispatch(getTrainings({}));
   }, []);
 
   useEffect(() => {
@@ -53,6 +62,8 @@ export const ResourceTrainingUpdate = () => {
     const entity = {
       ...resourceTrainingEntity,
       ...values,
+      resource: resources.find(it => it.id.toString() === values.resource.toString()),
+      training: trainings.find(it => it.id.toString() === values.training.toString()),
     };
 
     if (isNew) {
@@ -72,6 +83,8 @@ export const ResourceTrainingUpdate = () => {
           ...resourceTrainingEntity,
           activeFrom: convertDateTimeFromServer(resourceTrainingEntity.activeFrom),
           activeto: convertDateTimeFromServer(resourceTrainingEntity.activeto),
+          resource: resourceTrainingEntity?.resource?.id,
+          training: resourceTrainingEntity?.training?.id,
         };
 
   return (
@@ -138,6 +151,38 @@ export const ResourceTrainingUpdate = () => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
               />
+              <ValidatedField
+                id="resource-training-resource"
+                name="resource"
+                data-cy="resource"
+                label={translate('rosterSampleApplicationApp.resourceTraining.resource')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {resources
+                  ? resources.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="resource-training-training"
+                name="training"
+                data-cy="training"
+                label={translate('rosterSampleApplicationApp.resourceTraining.training')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {trainings
+                  ? trainings.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/resource-training" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

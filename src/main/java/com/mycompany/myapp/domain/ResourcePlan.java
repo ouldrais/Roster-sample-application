@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import org.hibernate.annotations.Cache;
@@ -23,6 +24,17 @@ public class ResourcePlan implements Serializable {
 
     @Column(name = "availability")
     private Boolean availability;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "team" }, allowSetters = true)
+    private Resource resource;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shift shift;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "department" }, allowSetters = true)
+    private Position position;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -50,6 +62,45 @@ public class ResourcePlan implements Serializable {
 
     public void setAvailability(Boolean availability) {
         this.availability = availability;
+    }
+
+    public Resource getResource() {
+        return this.resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    public ResourcePlan resource(Resource resource) {
+        this.setResource(resource);
+        return this;
+    }
+
+    public Shift getShift() {
+        return this.shift;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+
+    public ResourcePlan shift(Shift shift) {
+        this.setShift(shift);
+        return this;
+    }
+
+    public Position getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public ResourcePlan position(Position position) {
+        this.setPosition(position);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

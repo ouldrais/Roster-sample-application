@@ -70,6 +70,14 @@ export const ResourceTrainingDetail = () => {
               <TextFormat value={resourceTrainingEntity.activeto} type="date" format={APP_DATE_FORMAT} />
             ) : null}
           </dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.resourceTraining.resource">Resource</Translate>
+          </dt>
+          <dd>{resourceTrainingEntity.resource ? resourceTrainingEntity.resource.key : ''}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.resourceTraining.training">Training</Translate>
+          </dt>
+          <dd>{resourceTrainingEntity.training ? resourceTrainingEntity.training.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/resource-training" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

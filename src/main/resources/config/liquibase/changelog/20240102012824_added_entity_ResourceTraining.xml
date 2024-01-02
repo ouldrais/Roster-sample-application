@@ -29,6 +29,12 @@
             <column name="activeto" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
+            <column name="resource_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="training_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="resource_training" columnName="active_from" columnDataType="${datetimeType}"/>

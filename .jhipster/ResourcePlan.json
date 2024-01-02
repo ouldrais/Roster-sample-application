@@ -11,6 +11,28 @@
     }
   ],
   "name": "ResourcePlan",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "resource",
+      "relationshipName": "resource",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "shift",
+      "relationshipName": "shift",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "position",
+      "relationshipName": "position",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "searchEngine": "no"
 }

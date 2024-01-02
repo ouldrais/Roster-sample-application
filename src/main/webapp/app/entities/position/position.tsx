@@ -96,6 +96,10 @@ export const Position = () => {
                   <Translate contentKey="rosterSampleApplicationApp.position.leadership">Leadership</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('leadership')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.position.department">Department</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -109,6 +113,7 @@ export const Position = () => {
                   </td>
                   <td>{position.key}</td>
                   <td>{position.leadership}</td>
+                  <td>{position.department ? <Link to={`/department/${position.department.id}`}>{position.department.key}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/position/${position.id}`} color="info" size="sm" data-cy="entityDetailsButton">

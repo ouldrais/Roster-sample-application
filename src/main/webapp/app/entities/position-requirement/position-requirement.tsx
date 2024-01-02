@@ -99,6 +99,14 @@ export const PositionRequirement = () => {
                   <Translate contentKey="rosterSampleApplicationApp.positionRequirement.mandatoty">Mandatoty</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('mandatoty')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.positionRequirement.training">Training</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.positionRequirement.position">Position</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -111,6 +119,20 @@ export const PositionRequirement = () => {
                     </Button>
                   </td>
                   <td>{positionRequirement.mandatoty}</td>
+                  <td>
+                    {positionRequirement.training ? (
+                      <Link to={`/training/${positionRequirement.training.id}`}>{positionRequirement.training.key}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
+                  <td>
+                    {positionRequirement.position ? (
+                      <Link to={`/position/${positionRequirement.position.id}`}>{positionRequirement.position.key}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button

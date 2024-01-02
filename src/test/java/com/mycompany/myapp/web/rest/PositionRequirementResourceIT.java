@@ -2,6 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -9,13 +10,19 @@ import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.PositionRequirement;
 import com.mycompany.myapp.repository.PositionRequirementRepository;
 import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link PositionRequirementResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class PositionRequirementResourceIT {
@@ -40,6 +48,9 @@ class PositionRequirementResourceIT {
 
     @Autowired
     private PositionRequirementRepository positionRequirementRepository;
+
+    @Mock
+    private PositionRequirementRepository positionRequirementRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -127,6 +138,23 @@ class PositionRequirementResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(positionRequirement.getId().intValue())))
             .andExpect(jsonPath("$.[*].mandatoty").value(hasItem(DEFAULT_MANDATOTY)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllPositionRequirementsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(positionRequirementRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restPositionRequirementMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(positionRequirementRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllPositionRequirementsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(positionRequirementRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restPositionRequirementMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(positionRequirementRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test

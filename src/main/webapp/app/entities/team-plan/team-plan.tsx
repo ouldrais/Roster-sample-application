@@ -92,6 +92,12 @@ export const TeamPlan = () => {
                   <Translate contentKey="rosterSampleApplicationApp.teamPlan.availability">Availability</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('availability')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.teamPlan.team">Team</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.teamPlan.shift">Shift</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -104,6 +110,8 @@ export const TeamPlan = () => {
                     </Button>
                   </td>
                   <td>{teamPlan.availability ? 'true' : 'false'}</td>
+                  <td>{teamPlan.team ? <Link to={`/team/${teamPlan.team.id}`}>{teamPlan.team.key}</Link> : ''}</td>
+                  <td>{teamPlan.shift ? <Link to={`/shift/${teamPlan.shift.id}`}>{teamPlan.shift.key}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/team-plan/${teamPlan.id}`} color="info" size="sm" data-cy="entityDetailsButton">

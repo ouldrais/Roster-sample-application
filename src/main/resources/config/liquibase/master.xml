@@ -31,6 +31,12 @@
     <include file="config/liquibase/changelog/20240102013524_added_entity_ShiftTemplate.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20240102012624_added_entity_constraints_Resource.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240102012524_added_entity_constraints_TeamPlan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240102012724_added_entity_constraints_ResourcePlan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240102012824_added_entity_constraints_ResourceTraining.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240102013024_added_entity_constraints_PositionRequirement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240102013124_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20240102013424_added_entity_constraints_ShiftDemand.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

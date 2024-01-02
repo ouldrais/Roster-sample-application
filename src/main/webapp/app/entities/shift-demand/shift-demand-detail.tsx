@@ -37,6 +37,14 @@ export const ShiftDemandDetail = () => {
             </span>
           </dt>
           <dd>{shiftDemandEntity.count}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.shiftDemand.shift">Shift</Translate>
+          </dt>
+          <dd>{shiftDemandEntity.shift ? shiftDemandEntity.shift.key : ''}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.shiftDemand.department">Department</Translate>
+          </dt>
+          <dd>{shiftDemandEntity.department ? shiftDemandEntity.department.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/shift-demand" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

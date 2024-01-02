@@ -92,6 +92,17 @@ export const ResourcePlan = () => {
                   <Translate contentKey="rosterSampleApplicationApp.resourcePlan.availability">Availability</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('availability')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.resourcePlan.resource">Resource</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.resourcePlan.shift">Shift</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.resourcePlan.position">Position</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -104,6 +115,13 @@ export const ResourcePlan = () => {
                     </Button>
                   </td>
                   <td>{resourcePlan.availability ? 'true' : 'false'}</td>
+                  <td>
+                    {resourcePlan.resource ? <Link to={`/resource/${resourcePlan.resource.id}`}>{resourcePlan.resource.key}</Link> : ''}
+                  </td>
+                  <td>{resourcePlan.shift ? <Link to={`/shift/${resourcePlan.shift.id}`}>{resourcePlan.shift.key}</Link> : ''}</td>
+                  <td>
+                    {resourcePlan.position ? <Link to={`/position/${resourcePlan.position.id}`}>{resourcePlan.position.key}</Link> : ''}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/resource-plan/${resourcePlan.id}`} color="info" size="sm" data-cy="entityDetailsButton">

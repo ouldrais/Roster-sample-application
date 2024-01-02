@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -36,6 +37,13 @@ public class ResourceTraining implements Serializable {
 
     @Column(name = "activeto")
     private Instant activeto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "team" }, allowSetters = true)
+    private Resource resource;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Training training;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -115,6 +123,32 @@ public class ResourceTraining implements Serializable {
 
     public void setActiveto(Instant activeto) {
         this.activeto = activeto;
+    }
+
+    public Resource getResource() {
+        return this.resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    public ResourceTraining resource(Resource resource) {
+        this.setResource(resource);
+        return this;
+    }
+
+    public Training getTraining() {
+        return this.training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    public ResourceTraining training(Training training) {
+        this.setTraining(training);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

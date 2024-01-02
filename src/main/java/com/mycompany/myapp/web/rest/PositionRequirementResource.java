@@ -141,12 +141,19 @@ public class PositionRequirementResource {
     /**
      * {@code GET  /position-requirements} : get all the positionRequirements.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of positionRequirements in body.
      */
     @GetMapping("")
-    public List<PositionRequirement> getAllPositionRequirements() {
+    public List<PositionRequirement> getAllPositionRequirements(
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get all PositionRequirements");
-        return positionRequirementRepository.findAll();
+        if (eagerload) {
+            return positionRequirementRepository.findAllWithEagerRelationships();
+        } else {
+            return positionRequirementRepository.findAll();
+        }
     }
 
     /**
@@ -158,7 +165,7 @@ public class PositionRequirementResource {
     @GetMapping("/{id}")
     public ResponseEntity<PositionRequirement> getPositionRequirement(@PathVariable("id") Long id) {
         log.debug("REST request to get PositionRequirement : {}", id);
-        Optional<PositionRequirement> positionRequirement = positionRequirementRepository.findById(id);
+        Optional<PositionRequirement> positionRequirement = positionRequirementRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(positionRequirement);
     }
 
