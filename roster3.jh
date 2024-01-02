@@ -69,4 +69,47 @@ relationship ManyToOne {
 	Resource{team(key)} to Team
 }
 
+relationship ManyToOne {
+	ResourceTraining{resource(key)} to Resource
+}
+
+relationship ManyToOne {
+	ResourcePlan{resource(key)} to Resource
+}
+
+relationship ManyToOne {
+	PositionRequirement {training(key)} to Training
+}
+
+relationship ManyToOne {
+	PositionRequirement{position(key)} to Position
+}
+
+relationship ManyToOne {
+	Position{department(key)} to Department
+}
+
+relationship ManyToOne {
+	TeamPlan{team(key)} to Team
+}
+relationship ManyToOne {
+	TeamPlan{Shift(key)} to Shift
+}
+relationship ManyToOne {
+	ShiftDemand{shift(key)} to Shift
+}
+relationship ManyToOne {
+	ShiftDemand{Department(key)} to Department
+}
+relationship ManyToOne {
+	ResourcePlan{shift(key)} to Shift
+}
+
+relationship ManyToOne {
+	ResourcePlan{position(key)} to Position
+}
+
+relationship ManyToOne {
+	ResourceTraining{training(key)} to Training
+}
 
