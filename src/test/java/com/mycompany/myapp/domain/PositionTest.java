@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import static com.mycompany.myapp.domain.DepartmentTestSamples.*;
 import static com.mycompany.myapp.domain.PositionTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,5 +21,17 @@ class PositionTest {
 
         position2 = getPositionSample2();
         assertThat(position1).isNotEqualTo(position2);
+    }
+
+    @Test
+    void departmentTest() throws Exception {
+        Position position = getPositionRandomSampleGenerator();
+        Department departmentBack = getDepartmentRandomSampleGenerator();
+
+        position.setDepartment(departmentBack);
+        assertThat(position.getDepartment()).isEqualTo(departmentBack);
+
+        position.department(null);
+        assertThat(position.getDepartment()).isNull();
     }
 }

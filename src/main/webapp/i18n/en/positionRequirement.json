@@ -18,7 +18,9 @@
         "title": "Position Requirement"
       },
       "id": "ID",
-      "mandatoty": "Mandatoty"
+      "mandatoty": "Mandatoty",
+      "training": "Training",
+      "position": "Position"
     }
   }
 }

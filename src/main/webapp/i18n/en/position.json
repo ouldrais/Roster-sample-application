@@ -19,7 +19,8 @@
       },
       "id": "ID",
       "key": "Key",
-      "leadership": "Leadership"
+      "leadership": "Leadership",
+      "department": "Department"
     }
   }
 }

@@ -92,6 +92,13 @@ export const ShiftDemand = () => {
                   <Translate contentKey="rosterSampleApplicationApp.shiftDemand.count">Count</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('count')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.shiftDemand.shift">Shift</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.shiftDemand.department">Department</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -104,6 +111,14 @@ export const ShiftDemand = () => {
                     </Button>
                   </td>
                   <td>{shiftDemand.count}</td>
+                  <td>{shiftDemand.shift ? <Link to={`/shift/${shiftDemand.shift.id}`}>{shiftDemand.shift.key}</Link> : ''}</td>
+                  <td>
+                    {shiftDemand.department ? (
+                      <Link to={`/department/${shiftDemand.department.id}`}>{shiftDemand.department.key}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/shift-demand/${shiftDemand.id}`} color="info" size="sm" data-cy="entityDetailsButton">

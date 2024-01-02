@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IShift } from 'app/shared/model/shift.model';
+import { getEntities as getShifts } from 'app/entities/shift/shift.reducer';
+import { IDepartment } from 'app/shared/model/department.model';
+import { getEntities as getDepartments } from 'app/entities/department/department.reducer';
 import { IShiftDemand } from 'app/shared/model/shift-demand.model';
 import { getEntity, updateEntity, createEntity, reset } from './shift-demand.reducer';
 
@@ -19,6 +23,8 @@ export const ShiftDemandUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const shifts = useAppSelector(state => state.shift.entities);
+  const departments = useAppSelector(state => state.department.entities);
   const shiftDemandEntity = useAppSelector(state => state.shiftDemand.entity);
   const loading = useAppSelector(state => state.shiftDemand.loading);
   const updating = useAppSelector(state => state.shiftDemand.updating);
@@ -34,6 +40,9 @@ export const ShiftDemandUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getShifts({}));
+    dispatch(getDepartments({}));
   }, []);
 
   useEffect(() => {
@@ -54,6 +63,8 @@ export const ShiftDemandUpdate = () => {
     const entity = {
       ...shiftDemandEntity,
       ...values,
+      shift: shifts.find(it => it.id.toString() === values.shift.toString()),
+      department: departments.find(it => it.id.toString() === values.department.toString()),
     };
 
     if (isNew) {
@@ -68,6 +79,8 @@ export const ShiftDemandUpdate = () => {
       ? {}
       : {
           ...shiftDemandEntity,
+          shift: shiftDemandEntity?.shift?.id,
+          department: shiftDemandEntity?.department?.id,
         };
 
   return (
@@ -102,6 +115,38 @@ export const ShiftDemandUpdate = () => {
                 data-cy="count"
                 type="text"
               />
+              <ValidatedField
+                id="shift-demand-shift"
+                name="shift"
+                data-cy="shift"
+                label={translate('rosterSampleApplicationApp.shiftDemand.shift')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {shifts
+                  ? shifts.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="shift-demand-department"
+                name="department"
+                data-cy="department"
+                label={translate('rosterSampleApplicationApp.shiftDemand.department')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {departments
+                  ? departments.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/shift-demand" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

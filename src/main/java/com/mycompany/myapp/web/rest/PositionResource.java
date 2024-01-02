@@ -143,12 +143,17 @@ public class PositionResource {
     /**
      * {@code GET  /positions} : get all the positions.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of positions in body.
      */
     @GetMapping("")
-    public List<Position> getAllPositions() {
+    public List<Position> getAllPositions(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
         log.debug("REST request to get all Positions");
-        return positionRepository.findAll();
+        if (eagerload) {
+            return positionRepository.findAllWithEagerRelationships();
+        } else {
+            return positionRepository.findAll();
+        }
     }
 
     /**
@@ -160,7 +165,7 @@ public class PositionResource {
     @GetMapping("/{id}")
     public ResponseEntity<Position> getPosition(@PathVariable("id") Long id) {
         log.debug("REST request to get Position : {}", id);
-        Optional<Position> position = positionRepository.findById(id);
+        Optional<Position> position = positionRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(position);
     }
 

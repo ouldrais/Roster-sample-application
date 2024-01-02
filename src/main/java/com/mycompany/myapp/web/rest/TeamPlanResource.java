@@ -140,12 +140,17 @@ public class TeamPlanResource {
     /**
      * {@code GET  /team-plans} : get all the teamPlans.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teamPlans in body.
      */
     @GetMapping("")
-    public List<TeamPlan> getAllTeamPlans() {
+    public List<TeamPlan> getAllTeamPlans(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
         log.debug("REST request to get all TeamPlans");
-        return teamPlanRepository.findAll();
+        if (eagerload) {
+            return teamPlanRepository.findAllWithEagerRelationships();
+        } else {
+            return teamPlanRepository.findAll();
+        }
     }
 
     /**
@@ -157,7 +162,7 @@ public class TeamPlanResource {
     @GetMapping("/{id}")
     public ResponseEntity<TeamPlan> getTeamPlan(@PathVariable("id") Long id) {
         log.debug("REST request to get TeamPlan : {}", id);
-        Optional<TeamPlan> teamPlan = teamPlanRepository.findById(id);
+        Optional<TeamPlan> teamPlan = teamPlanRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(teamPlan);
     }
 

@@ -37,6 +37,18 @@ export const ResourcePlanDetail = () => {
             </span>
           </dt>
           <dd>{resourcePlanEntity.availability ? 'true' : 'false'}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.resourcePlan.resource">Resource</Translate>
+          </dt>
+          <dd>{resourcePlanEntity.resource ? resourcePlanEntity.resource.key : ''}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.resourcePlan.shift">Shift</Translate>
+          </dt>
+          <dd>{resourcePlanEntity.shift ? resourcePlanEntity.shift.key : ''}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.resourcePlan.position">Position</Translate>
+          </dt>
+          <dd>{resourcePlanEntity.position ? resourcePlanEntity.position.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/resource-plan" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

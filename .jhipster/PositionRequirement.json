@@ -11,6 +11,21 @@
     }
   ],
   "name": "PositionRequirement",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "training",
+      "relationshipName": "training",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "key",
+      "otherEntityName": "position",
+      "relationshipName": "position",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "searchEngine": "no"
 }

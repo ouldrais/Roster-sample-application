@@ -37,6 +37,14 @@ export const TeamPlanDetail = () => {
             </span>
           </dt>
           <dd>{teamPlanEntity.availability ? 'true' : 'false'}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.teamPlan.team">Team</Translate>
+          </dt>
+          <dd>{teamPlanEntity.team ? teamPlanEntity.team.key : ''}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.teamPlan.shift">Shift</Translate>
+          </dt>
+          <dd>{teamPlanEntity.shift ? teamPlanEntity.shift.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/team-plan" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

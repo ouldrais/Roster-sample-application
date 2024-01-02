@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IDepartment } from 'app/shared/model/department.model';
+import { getEntities as getDepartments } from 'app/entities/department/department.reducer';
 import { IPosition } from 'app/shared/model/position.model';
 import { getEntity, updateEntity, createEntity, reset } from './position.reducer';
 
@@ -19,6 +21,7 @@ export const PositionUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const departments = useAppSelector(state => state.department.entities);
   const positionEntity = useAppSelector(state => state.position.entity);
   const loading = useAppSelector(state => state.position.loading);
   const updating = useAppSelector(state => state.position.updating);
@@ -34,6 +37,8 @@ export const PositionUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getDepartments({}));
   }, []);
 
   useEffect(() => {
@@ -54,6 +59,7 @@ export const PositionUpdate = () => {
     const entity = {
       ...positionEntity,
       ...values,
+      department: departments.find(it => it.id.toString() === values.department.toString()),
     };
 
     if (isNew) {
@@ -68,6 +74,7 @@ export const PositionUpdate = () => {
       ? {}
       : {
           ...positionEntity,
+          department: positionEntity?.department?.id,
         };
 
   return (
@@ -109,6 +116,22 @@ export const PositionUpdate = () => {
                 data-cy="leadership"
                 type="text"
               />
+              <ValidatedField
+                id="position-department"
+                name="department"
+                data-cy="department"
+                label={translate('rosterSampleApplicationApp.position.department')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {departments
+                  ? departments.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/position" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

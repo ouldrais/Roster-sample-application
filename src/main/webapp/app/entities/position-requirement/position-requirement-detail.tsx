@@ -37,6 +37,14 @@ export const PositionRequirementDetail = () => {
             </span>
           </dt>
           <dd>{positionRequirementEntity.mandatoty}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.positionRequirement.training">Training</Translate>
+          </dt>
+          <dd>{positionRequirementEntity.training ? positionRequirementEntity.training.key : ''}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.positionRequirement.position">Position</Translate>
+          </dt>
+          <dd>{positionRequirementEntity.position ? positionRequirementEntity.position.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/position-requirement" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

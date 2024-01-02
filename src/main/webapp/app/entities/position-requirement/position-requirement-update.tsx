@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { ITraining } from 'app/shared/model/training.model';
+import { getEntities as getTrainings } from 'app/entities/training/training.reducer';
+import { IPosition } from 'app/shared/model/position.model';
+import { getEntities as getPositions } from 'app/entities/position/position.reducer';
 import { IPositionRequirement } from 'app/shared/model/position-requirement.model';
 import { getEntity, updateEntity, createEntity, reset } from './position-requirement.reducer';
 
@@ -19,6 +23,8 @@ export const PositionRequirementUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const trainings = useAppSelector(state => state.training.entities);
+  const positions = useAppSelector(state => state.position.entities);
   const positionRequirementEntity = useAppSelector(state => state.positionRequirement.entity);
   const loading = useAppSelector(state => state.positionRequirement.loading);
   const updating = useAppSelector(state => state.positionRequirement.updating);
@@ -34,6 +40,9 @@ export const PositionRequirementUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getTrainings({}));
+    dispatch(getPositions({}));
   }, []);
 
   useEffect(() => {
@@ -51,6 +60,8 @@ export const PositionRequirementUpdate = () => {
     const entity = {
       ...positionRequirementEntity,
       ...values,
+      training: trainings.find(it => it.id.toString() === values.training.toString()),
+      position: positions.find(it => it.id.toString() === values.position.toString()),
     };
 
     if (isNew) {
@@ -65,6 +76,8 @@ export const PositionRequirementUpdate = () => {
       ? {}
       : {
           ...positionRequirementEntity,
+          training: positionRequirementEntity?.training?.id,
+          position: positionRequirementEntity?.position?.id,
         };
 
   return (
@@ -101,6 +114,38 @@ export const PositionRequirementUpdate = () => {
                 data-cy="mandatoty"
                 type="text"
               />
+              <ValidatedField
+                id="position-requirement-training"
+                name="training"
+                data-cy="training"
+                label={translate('rosterSampleApplicationApp.positionRequirement.training')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {trainings
+                  ? trainings.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="position-requirement-position"
+                name="position"
+                data-cy="position"
+                label={translate('rosterSampleApplicationApp.positionRequirement.position')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {positions
+                  ? positions.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/position-requirement" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

@@ -24,6 +24,12 @@ public class TeamPlan implements Serializable {
     @Column(name = "availability")
     private Boolean availability;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Team team;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shift shift;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -50,6 +56,32 @@ public class TeamPlan implements Serializable {
 
     public void setAvailability(Boolean availability) {
         this.availability = availability;
+    }
+
+    public Team getTeam() {
+        return this.team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public TeamPlan team(Team team) {
+        this.setTeam(team);
+        return this;
+    }
+
+    public Shift getShift() {
+        return this.shift;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+
+    public TeamPlan shift(Shift shift) {
+        this.setShift(shift);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

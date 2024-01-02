@@ -18,7 +18,9 @@
         "title": "Team Plan"
       },
       "id": "ID",
-      "availability": "Availability"
+      "availability": "Availability",
+      "team": "Team",
+      "shift": "Shift"
     }
   }
 }

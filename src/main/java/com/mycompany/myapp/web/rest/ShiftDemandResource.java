@@ -140,12 +140,19 @@ public class ShiftDemandResource {
     /**
      * {@code GET  /shift-demands} : get all the shiftDemands.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of shiftDemands in body.
      */
     @GetMapping("")
-    public List<ShiftDemand> getAllShiftDemands() {
+    public List<ShiftDemand> getAllShiftDemands(
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get all ShiftDemands");
-        return shiftDemandRepository.findAll();
+        if (eagerload) {
+            return shiftDemandRepository.findAllWithEagerRelationships();
+        } else {
+            return shiftDemandRepository.findAll();
+        }
     }
 
     /**
@@ -157,7 +164,7 @@ public class ShiftDemandResource {
     @GetMapping("/{id}")
     public ResponseEntity<ShiftDemand> getShiftDemand(@PathVariable("id") Long id) {
         log.debug("REST request to get ShiftDemand : {}", id);
-        Optional<ShiftDemand> shiftDemand = shiftDemandRepository.findById(id);
+        Optional<ShiftDemand> shiftDemand = shiftDemandRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(shiftDemand);
     }
 

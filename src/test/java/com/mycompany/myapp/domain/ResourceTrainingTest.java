@@ -1,6 +1,8 @@
 package com.mycompany.myapp.domain;
 
+import static com.mycompany.myapp.domain.ResourceTestSamples.*;
 import static com.mycompany.myapp.domain.ResourceTrainingTestSamples.*;
+import static com.mycompany.myapp.domain.TrainingTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.mycompany.myapp.web.rest.TestUtil;
@@ -20,5 +22,29 @@ class ResourceTrainingTest {
 
         resourceTraining2 = getResourceTrainingSample2();
         assertThat(resourceTraining1).isNotEqualTo(resourceTraining2);
+    }
+
+    @Test
+    void resourceTest() throws Exception {
+        ResourceTraining resourceTraining = getResourceTrainingRandomSampleGenerator();
+        Resource resourceBack = getResourceRandomSampleGenerator();
+
+        resourceTraining.setResource(resourceBack);
+        assertThat(resourceTraining.getResource()).isEqualTo(resourceBack);
+
+        resourceTraining.resource(null);
+        assertThat(resourceTraining.getResource()).isNull();
+    }
+
+    @Test
+    void trainingTest() throws Exception {
+        ResourceTraining resourceTraining = getResourceTrainingRandomSampleGenerator();
+        Training trainingBack = getTrainingRandomSampleGenerator();
+
+        resourceTraining.setTraining(trainingBack);
+        assertThat(resourceTraining.getTraining()).isEqualTo(trainingBack);
+
+        resourceTraining.training(null);
+        assertThat(resourceTraining.getTraining()).isNull();
     }
 }

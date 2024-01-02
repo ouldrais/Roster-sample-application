@@ -109,6 +109,14 @@ export const ResourceTraining = () => {
                   <Translate contentKey="rosterSampleApplicationApp.resourceTraining.activeto">Activeto</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('activeto')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.resourceTraining.resource">Resource</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.resourceTraining.training">Training</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -132,6 +140,20 @@ export const ResourceTraining = () => {
                     {resourceTraining.activeto ? (
                       <TextFormat type="date" value={resourceTraining.activeto} format={APP_DATE_FORMAT} />
                     ) : null}
+                  </td>
+                  <td>
+                    {resourceTraining.resource ? (
+                      <Link to={`/resource/${resourceTraining.resource.id}`}>{resourceTraining.resource.key}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
+                  <td>
+                    {resourceTraining.training ? (
+                      <Link to={`/training/${resourceTraining.training.id}`}>{resourceTraining.training.key}</Link>
+                    ) : (
+                      ''
+                    )}
                   </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
