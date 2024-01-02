@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20240102012624"
+  },
+  "applications": "*",
+  "entityTableName": "resource",
+  "fields": [
+    {
+      "fieldName": "key",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "teamRole",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "exchangeAllowed",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Resource",
+  "relationships": [],
+  "searchEngine": "no"
+}
