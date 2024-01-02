@@ -22,7 +22,8 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "teamRole": "Team Role",
-      "exchangeAllowed": "Exchange Allowed"
+      "exchangeAllowed": "Exchange Allowed",
+      "team": "Team"
     }
   }
 }

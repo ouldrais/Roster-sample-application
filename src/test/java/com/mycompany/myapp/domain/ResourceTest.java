@@ -1,6 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import static com.mycompany.myapp.domain.ResourceTestSamples.*;
+import static com.mycompany.myapp.domain.TeamTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.mycompany.myapp.web.rest.TestUtil;
@@ -20,5 +21,17 @@ class ResourceTest {
 
         resource2 = getResourceSample2();
         assertThat(resource1).isNotEqualTo(resource2);
+    }
+
+    @Test
+    void teamTest() throws Exception {
+        Resource resource = getResourceRandomSampleGenerator();
+        Team teamBack = getTeamRandomSampleGenerator();
+
+        resource.setTeam(teamBack);
+        assertThat(resource.getTeam()).isEqualTo(teamBack);
+
+        resource.team(null);
+        assertThat(resource.getTeam()).isNull();
     }
 }

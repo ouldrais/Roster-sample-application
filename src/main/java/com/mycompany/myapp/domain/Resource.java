@@ -36,6 +36,9 @@ public class Resource implements Serializable {
     @Column(name = "exchange_allowed")
     private Boolean exchangeAllowed;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Team team;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -114,6 +117,19 @@ public class Resource implements Serializable {
 
     public void setExchangeAllowed(Boolean exchangeAllowed) {
         this.exchangeAllowed = exchangeAllowed;
+    }
+
+    public Team getTeam() {
+        return this.team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Resource team(Team team) {
+        this.setTeam(team);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

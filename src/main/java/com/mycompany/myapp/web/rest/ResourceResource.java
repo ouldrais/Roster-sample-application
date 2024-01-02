@@ -152,12 +152,17 @@ public class ResourceResource {
     /**
      * {@code GET  /resources} : get all the resources.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of resources in body.
      */
     @GetMapping("")
-    public List<Resource> getAllResources() {
+    public List<Resource> getAllResources(@RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload) {
         log.debug("REST request to get all Resources");
-        return resourceRepository.findAll();
+        if (eagerload) {
+            return resourceRepository.findAllWithEagerRelationships();
+        } else {
+            return resourceRepository.findAll();
+        }
     }
 
     /**
@@ -169,7 +174,7 @@ public class ResourceResource {
     @GetMapping("/{id}")
     public ResponseEntity<Resource> getResource(@PathVariable("id") Long id) {
         log.debug("REST request to get Resource : {}", id);
-        Optional<Resource> resource = resourceRepository.findById(id);
+        Optional<Resource> resource = resourceRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(resource);
     }
 

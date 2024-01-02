@@ -1,3 +1,5 @@
+import { ITeam } from 'app/shared/model/team.model';
+
 export interface IResource {
   id?: number;
   key?: number | null;
@@ -5,6 +7,7 @@ export interface IResource {
   lastName?: string | null;
   teamRole?: string | null;
   exchangeAllowed?: boolean | null;
+  team?: ITeam | null;
 }
 
 export const defaultValue: Readonly<IResource> = {

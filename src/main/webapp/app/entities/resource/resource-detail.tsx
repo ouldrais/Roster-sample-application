@@ -61,6 +61,10 @@ export const ResourceDetail = () => {
             </span>
           </dt>
           <dd>{resourceEntity.exchangeAllowed ? 'true' : 'false'}</dd>
+          <dt>
+            <Translate contentKey="rosterSampleApplicationApp.resource.team">Team</Translate>
+          </dt>
+          <dd>{resourceEntity.team ? resourceEntity.team.key : ''}</dd>
         </dl>
         <Button tag={Link} to="/resource" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
