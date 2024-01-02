@@ -108,6 +108,9 @@ export const Resource = () => {
                   <Translate contentKey="rosterSampleApplicationApp.resource.exchangeAllowed">Exchange Allowed</Translate>{' '}
                   <FontAwesomeIcon icon={getSortIconByFieldName('exchangeAllowed')} />
                 </th>
+                <th>
+                  <Translate contentKey="rosterSampleApplicationApp.resource.team">Team</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -124,6 +127,7 @@ export const Resource = () => {
                   <td>{resource.lastName}</td>
                   <td>{resource.teamRole}</td>
                   <td>{resource.exchangeAllowed ? 'true' : 'false'}</td>
+                  <td>{resource.team ? <Link to={`/team/${resource.team.id}`}>{resource.team.key}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/resource/${resource.id}`} color="info" size="sm" data-cy="entityDetailsButton">

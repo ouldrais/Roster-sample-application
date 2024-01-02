@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { ITeam } from 'app/shared/model/team.model';
+import { getEntities as getTeams } from 'app/entities/team/team.reducer';
 import { IResource } from 'app/shared/model/resource.model';
 import { getEntity, updateEntity, createEntity, reset } from './resource.reducer';
 
@@ -19,6 +21,7 @@ export const ResourceUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const teams = useAppSelector(state => state.team.entities);
   const resourceEntity = useAppSelector(state => state.resource.entity);
   const loading = useAppSelector(state => state.resource.loading);
   const updating = useAppSelector(state => state.resource.updating);
@@ -34,6 +37,8 @@ export const ResourceUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getTeams({}));
   }, []);
 
   useEffect(() => {
@@ -54,6 +59,7 @@ export const ResourceUpdate = () => {
     const entity = {
       ...resourceEntity,
       ...values,
+      team: teams.find(it => it.id.toString() === values.team.toString()),
     };
 
     if (isNew) {
@@ -68,6 +74,7 @@ export const ResourceUpdate = () => {
       ? {}
       : {
           ...resourceEntity,
+          team: resourceEntity?.team?.id,
         };
 
   return (
@@ -131,6 +138,22 @@ export const ResourceUpdate = () => {
                 check
                 type="checkbox"
               />
+              <ValidatedField
+                id="resource-team"
+                name="team"
+                data-cy="team"
+                label={translate('rosterSampleApplicationApp.resource.team')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {teams
+                  ? teams.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.key}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/resource" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
